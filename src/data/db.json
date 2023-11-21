@@ -1,14 +1,18 @@
 {
   "ids": {
-    "User": 2,
-    "UserCredentials": 2
+    "User": 5,
+    "UserCredentials": 4
   },
   "models": {
     "User": {
-      "string": "{\"id\":\"string\",\"realm\":\"string\",\"username\":\"lena\",\"email\":\"string@lena.ru\",\"emailVerified\":true,\"verificationToken\":\"string\",\"additionalProp1\":{}}"
+      "string": "{\"id\":\"string\",\"realm\":\"string\",\"username\":\"lena\",\"email\":\"string@lena.ru\",\"emailVerified\":true,\"verificationToken\":\"string\",\"additionalProp1\":{}}",
+      "string2": "{\"id\":\"string2\",\"realm\":\"string\",\"username\":\"denis\",\"email\":\"s@tri.ng\",\"emailVerified\":true,\"verificationToken\":\"string\",\"additionalProp1\":{}}",
+      "str6ing": "{\"id\":\"str6ing\",\"realm\":\"string\",\"username\":\"leo\",\"email\":\"str@i.ng\",\"emailVerified\":true,\"verificationToken\":\"string\",\"additionalProp1\":{}}"
     },
     "UserCredentials": {
-      "fb67128b-6287-4cd7-86fe-fc1b629e5e60": "{\"id\":\"fb67128b-6287-4cd7-86fe-fc1b629e5e60\",\"password\":\"$2a$10$9UQWZNUHHnu/n364Pz0ps.Gh0ne9xl6LjPEGOcYDkSD8gpZYgyrwy\",\"userId\":\"string\"}"
+      "fb67128b-6287-4cd7-86fe-fc1b629e5e60": "{\"id\":\"fb67128b-6287-4cd7-86fe-fc1b629e5e60\",\"password\":\"$2a$10$9UQWZNUHHnu/n364Pz0ps.Gh0ne9xl6LjPEGOcYDkSD8gpZYgyrwy\",\"userId\":\"string\"}",
+      "5902ef05-2904-40f5-bf3d-a0a9f04a0b53": "{\"id\":\"5902ef05-2904-40f5-bf3d-a0a9f04a0b53\",\"password\":\"$2a$10$QwbpesEm7whl9.s7BVxmtuIDKU/kKPT0JyVz3MBmHk1kJm83p6ize\",\"userId\":\"string2\"}",
+      "8ccc9546-a866-45ce-856c-a7168af1ff8b": "{\"id\":\"8ccc9546-a866-45ce-856c-a7168af1ff8b\",\"password\":\"$2a$10$aP9TxUxpVyWJstUsV8Oz..NVs0wVMh9W5O6JobcvHo6ACPrYtARz.\",\"userId\":\"str6ing\"}"
     }
   }
 }

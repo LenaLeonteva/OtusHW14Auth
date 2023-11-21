@@ -24,6 +24,8 @@ import {
 import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
 import {genSalt, hash} from 'bcryptjs';
 import _ from 'lodash';
+import {Users} from '../models/users.model';
+import {UsersRepository} from '../repositories';
 
 @model()
 export class NewUserRequest extends User {
@@ -65,7 +67,8 @@ export class UserController {
     @inject(SecurityBindings.USER, {optional: true})
     public user: UserProfile,
     @repository(UserRepository) protected userRepository: UserRepository,
-  ) {}
+    @repository(UsersRepository) public dataUserRepo: UsersRepository
+  ) { }
 
   @post('/users/login', {
     responses: {
@@ -153,6 +156,11 @@ export class UserController {
     );
 
     await this.userRepository.userCredentials(savedUser.id).create({password});
+
+    let dataUser = new Users();
+    dataUser.email = newUserRequest.email;
+    dataUser.username = newUserRequest.username;
+    await this.dataUserRepo.create(dataUser);
 
     return savedUser;
   }

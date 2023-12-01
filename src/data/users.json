@@ -1,10 +1,11 @@
 {
   "ids": {
-    "Users": 2
+    "Users": 3
   },
   "models": {
     "Users": {
-      "1": "{\"username\":\"string\",\"email\":\"s@tr.ing\",\"id\":\"1\"}"
+      "1": "{\"username\":\"string\",\"email\":\"s@tr.ing\",\"id\":\"1\"}",
+      "2": "{\"username\":\"marsik\",\"email\":\"kot@kot.kot\",\"id\":\"2\"}"
     }
   }
 }

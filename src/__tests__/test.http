@@ -1,0 +1,30 @@
+### reister
+POST http://127.0.0.1:3000/signup
+Content-Type: application/json
+
+{
+  "id": "1",
+  "username": "marsik",
+  "password": "kotkotkot",
+  "email": "kot@kot.kot"
+}
+
+### login
+POST http://127.0.0.1:3000/login
+Content-Type: application/json
+
+{
+  "username": "marsik",
+  "password": "kotkotkot"
+}
+
+### auth
+POST http://127.0.0.1:3000/auth
+Content-Type: application/json
+
+{
+  "sessionID": "d97b80fc-eea9-481a-b1dd-195cf0a7a150"
+}
+
+###signin
+GET http://127.0.0.1:3000/signin

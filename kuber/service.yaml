@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service # имя сервиса
+spec:
+  ports:
+    - protocol: TCP
+      port: 8080 # порт, на котором сервис будет принимать трафик
+      targetPort: 8000 # порт, на который сервис будет перенаправлять трафик
+  selector:
+    app: auth # значение метки, по которой селектор будет производить выборку
+  type: LoadBalancer # тип сервиса

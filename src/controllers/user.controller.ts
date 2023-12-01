@@ -19,13 +19,18 @@ import {
   getModelSchemaRef,
   post,
   requestBody,
-  SchemaObject,
+  Response,
+  RestBindings,
+  SchemaObject
 } from '@loopback/rest';
 import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
 import {genSalt, hash} from 'bcryptjs';
 import _ from 'lodash';
+import {v4 as uuidv4} from 'uuid';
 import {Users} from '../models/users.model';
 import {UsersRepository} from '../repositories';
+
+let SESSIONS = new Map();
 
 @model()
 export class NewUserRequest extends User {
@@ -67,19 +72,20 @@ export class UserController {
     @inject(SecurityBindings.USER, {optional: true})
     public user: UserProfile,
     @repository(UserRepository) protected userRepository: UserRepository,
-    @repository(UsersRepository) public dataUserRepo: UsersRepository
+    @repository(UsersRepository) public dataUserRepo: UsersRepository,
+    @inject(RestBindings.Http.RESPONSE) private response: Response
   ) { }
 
-  @post('/users/login', {
+  @post('/login', {
     responses: {
       '200': {
-        description: 'Token',
+        description: 'Session',
         content: {
           'application/json': {
             schema: {
               type: 'object',
               properties: {
-                token: {
+                sessionID: {
                   type: 'string',
                 },
               },
@@ -91,15 +97,117 @@ export class UserController {
   })
   async login(
     @requestBody(CredentialsRequestBody) credentials: Credentials,
-  ): Promise<{token: string}> {
+  ): Promise<any> {
     // ensure the user exists, and the password is correct
     const user = await this.userService.verifyCredentials(credentials);
     // convert a User object into a UserProfile object (reduced set of properties)
-    const userProfile = this.userService.convertToUserProfile(user);
+    //const userProfile = this.userService.convertToUserProfile(user);
 
     // create a JSON Web Token based on the user profile
-    const token = await this.jwtService.generateToken(userProfile);
-    return {token};
+    //const token = await this.jwtService.generateToken(userProfile);
+    const filter = {
+      where: {
+        username: user.username,
+      }
+    };
+    let userID = await this.dataUserRepo.findOne(filter);
+    if (!userID) return this.response.status(401).send(
+      {
+        statusCode: 401,
+        code: "error",
+        message: "The user doesn't exist",
+
+      })
+
+    let sessionID = uuidv4();
+    let userInfo = {
+      userID: userID?.id,
+      userName: userID?.username,
+      email: userID?.email
+
+    }
+    SESSIONS.set(sessionID, userInfo);
+    this.response.set('X-UserId', userID?.id);
+    this.response.set('X-User', userID?.username);
+    this.response.set('X-Email', userID?.email);
+    return {sessionID};
+  };
+
+  @post('/auth', {
+    responses: {
+      '200': {
+        description: 'Session',
+      },
+    },
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            properties: {
+              sessionID: {
+                type: 'string',
+              }
+            },
+          }
+        }
+      }
+    }
+  })
+  async auth(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: {
+            type: 'object',
+            properties: {
+              sessionID: {
+                type: 'string',
+              }
+            },
+          }
+        }
+      }
+    }) session: any,
+  ): Promise<any> {
+    if (!SESSIONS.has(session.sessionID)) return this.response.status(403).send(
+      {
+        statusCode: 403,
+        code: "error",
+        message: "Please go to login and provide Login/Password",
+
+      })
+    let userData = SESSIONS.get(session.sessionID);
+    const filter = {
+      where: {
+        username: userData.userName,
+      }
+    };
+    let userID = await this.dataUserRepo.findOne(filter);
+    if (!userID) return this.response.status(401).send(
+      {
+        statusCode: 401,
+        code: "error",
+        message: "The user doesn't exist",
+
+      })
+    this.response.set('X-UserId', userID?.id);
+    this.response.set('X-User', userID?.username);
+    this.response.set('X-Email', userID?.email);
+    return this.response.status(200).send();
+  }
+
+
+  @get('/signin', {
+    responses: {
+      default: {
+        description: 'Please go to login and provide Login/Password',
+      },
+    }
+  })
+  async signin(
+  ): Promise<any> {
+    return {message: 'Please go to login and provide Login/Password'}
   }
 
   @authenticate('jwt')

@@ -268,6 +268,9 @@ export class UserController {
     let dataUser = new Users();
     dataUser.email = newUserRequest.email;
     dataUser.username = newUserRequest.username;
+    dataUser.firstName = "";
+    dataUser.lastName = "";
+    dataUser.phone = "";
     await this.dataUserRepo.create(dataUser);
 
     return savedUser;

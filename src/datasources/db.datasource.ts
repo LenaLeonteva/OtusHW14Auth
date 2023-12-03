@@ -5,13 +5,9 @@
 
 import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
+import {CONFIG} from '../config';
 
-const config = {
-  name: 'db',
-  connector: 'memory',
-  localStorage: '',
-  file: './src/data/db.json',
-};
+const config = CONFIG.db;
 
 // Observe application's life cycle to disconnect the datasource when
 // application is stopped. This allows the application to be shut down
@@ -20,8 +16,7 @@ const config = {
 @lifeCycleObserver('datasource')
 export class DbDataSource
   extends juggler.DataSource
-  implements LifeCycleObserver
-{
+  implements LifeCycleObserver {
   static dataSourceName = 'db';
   static readonly defaultConfig = config;
 

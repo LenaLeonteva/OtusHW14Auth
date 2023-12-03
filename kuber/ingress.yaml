@@ -8,7 +8,7 @@ spec:
     - host: arch.homework
       http:
         paths:
-          - path: /users/login
+          - path: /login
             pathType: Prefix
             backend:
               service:

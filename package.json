@@ -55,12 +55,14 @@
     "@loopback/rest": "^13.1.2",
     "@loopback/rest-explorer": "^6.1.2",
     "@loopback/service-proxy": "^6.1.2",
+    "cookie": "^0.6.0",
     "tslib": "^2.0.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@loopback/build": "^10.1.2",
     "@loopback/testlab": "^6.1.2",
+    "@types/cookie": "^0.6.0",
     "@types/node": "^16.18.40",
     "@types/uuid": "^9.0.7",
     "source-map-support": "^0.5.21",

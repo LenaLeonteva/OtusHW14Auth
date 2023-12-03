@@ -1,22 +1,18 @@
 {
   "ids": {
-    "User": 7,
-    "UserCredentials": 6
+    "User": 4,
+    "UserCredentials": 4
   },
   "models": {
     "User": {
-      "1": "{\"id\":\"1\",\"username\":\"marsik\",\"email\":\"kot@kot.kot\"}",
-      "string": "{\"id\":\"string\",\"realm\":\"string\",\"username\":\"lena\",\"email\":\"string@lena.ru\",\"emailVerified\":true,\"verificationToken\":\"string\",\"additionalProp1\":{}}",
-      "string2": "{\"id\":\"string2\",\"realm\":\"string\",\"username\":\"denis\",\"email\":\"s@tri.ng\",\"emailVerified\":true,\"verificationToken\":\"string\",\"additionalProp1\":{}}",
-      "str6ing": "{\"id\":\"str6ing\",\"realm\":\"string\",\"username\":\"leo\",\"email\":\"str@i.ng\",\"emailVerified\":true,\"verificationToken\":\"string\",\"additionalProp1\":{}}",
-      "1string": "{\"id\":\"1string\",\"realm\":\"string\",\"username\":\"string\",\"email\":\"s@tr.ing\",\"emailVerified\":true,\"verificationToken\":\"string\",\"additionalProp1\":{}}"
+      "8e1a6234-bde1-4f94-b150-f1f1a89591ab": "{\"id\":\"8e1a6234-bde1-4f94-b150-f1f1a89591ab\",\"username\":\"marsik\",\"email\":\"kot@kot.kot\"}",
+      "96b602f3-2ca8-4962-8a7d-f178a4af9bd1": "{\"id\":\"96b602f3-2ca8-4962-8a7d-f178a4af9bd1\",\"username\":\"yosik\",\"email\":\"yosik@kot.kot\"}",
+      "f023040d-e79c-4b76-913e-c42a8ec42ec4": "{\"id\":\"f023040d-e79c-4b76-913e-c42a8ec42ec4\",\"username\":\"alisa\",\"email\":\"koshka@kot.kot\"}"
     },
     "UserCredentials": {
-      "fb67128b-6287-4cd7-86fe-fc1b629e5e60": "{\"id\":\"fb67128b-6287-4cd7-86fe-fc1b629e5e60\",\"password\":\"$2a$10$9UQWZNUHHnu/n364Pz0ps.Gh0ne9xl6LjPEGOcYDkSD8gpZYgyrwy\",\"userId\":\"string\"}",
-      "5902ef05-2904-40f5-bf3d-a0a9f04a0b53": "{\"id\":\"5902ef05-2904-40f5-bf3d-a0a9f04a0b53\",\"password\":\"$2a$10$QwbpesEm7whl9.s7BVxmtuIDKU/kKPT0JyVz3MBmHk1kJm83p6ize\",\"userId\":\"string2\"}",
-      "8ccc9546-a866-45ce-856c-a7168af1ff8b": "{\"id\":\"8ccc9546-a866-45ce-856c-a7168af1ff8b\",\"password\":\"$2a$10$aP9TxUxpVyWJstUsV8Oz..NVs0wVMh9W5O6JobcvHo6ACPrYtARz.\",\"userId\":\"str6ing\"}",
-      "e9c97f96-a4a1-4a47-a098-815380fe9b30": "{\"id\":\"e9c97f96-a4a1-4a47-a098-815380fe9b30\",\"password\":\"$2a$10$W0qncockJSH0abv/8og/jukxUaN9GWR9B5n1.NkMa76EdvYLOy6YW\",\"userId\":\"1string\"}",
-      "0286884b-536a-4fb2-b6e5-64d962f04217": "{\"id\":\"0286884b-536a-4fb2-b6e5-64d962f04217\",\"password\":\"$2a$10$7pX5Q2YlUCj6OUqn/g9s.e6F76ZTJJXH8h4XYWn7lDu0af8sO1yjy\",\"userId\":\"1\"}"
+      "10f5f0b8-35b4-4550-b818-ca5537c904b4": "{\"id\":\"10f5f0b8-35b4-4550-b818-ca5537c904b4\",\"password\":\"$2a$10$vr/FiDJ4eYmlwqWvE7Wvt.PWhTJ47XXQb6tCxhd3lTRQLymyhXai2\",\"userId\":\"8e1a6234-bde1-4f94-b150-f1f1a89591ab\"}",
+      "1e5176d0-0516-4128-b6c1-89ecaeeb86f1": "{\"id\":\"1e5176d0-0516-4128-b6c1-89ecaeeb86f1\",\"password\":\"$2a$10$BEZcKeOyAZVREYHOy/c8eewaLENedsQnfU402BW3DR/F.e.RRAoV6\",\"userId\":\"96b602f3-2ca8-4962-8a7d-f178a4af9bd1\"}",
+      "956becbb-155d-4bb6-83f4-950a89457f69": "{\"id\":\"956becbb-155d-4bb6-83f4-950a89457f69\",\"password\":\"$2a$10$9AEC.YAUWJLvNB32qynAUOfnONfKIc8zFnAngOPAK8yBVoVyX44Va\",\"userId\":\"f023040d-e79c-4b76-913e-c42a8ec42ec4\"}"
     }
   }
 }

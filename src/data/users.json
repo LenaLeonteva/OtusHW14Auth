@@ -1,11 +1,12 @@
 {
   "ids": {
-    "Users": 3
+    "Users": 4
   },
   "models": {
     "Users": {
-      "1": "{\"username\":\"string\",\"email\":\"s@tr.ing\",\"id\":\"1\"}",
-      "2": "{\"username\":\"marsik\",\"email\":\"kot@kot.kot\",\"id\":\"2\"}"
+      "1": "{\"username\":\"marsik\",\"firstName\":\"\",\"lastName\":\"\",\"email\":\"kot@kot.kot\",\"phone\":\"\",\"id\":\"1\"}",
+      "2": "{\"username\":\"yosik\",\"firstName\":\"\",\"lastName\":\"\",\"email\":\"yosik@kot.kot\",\"phone\":\"\",\"id\":\"2\"}",
+      "3": "{\"username\":\"alisa\",\"firstName\":\"\",\"lastName\":\"\",\"email\":\"koshka@kot.kot\",\"phone\":\"\",\"id\":\"3\"}"
     }
   }
 }

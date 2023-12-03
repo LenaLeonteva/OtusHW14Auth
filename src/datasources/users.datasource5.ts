@@ -1,8 +1,12 @@
 import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
-import {CONFIG} from '../config';
 
-const config = CONFIG.db;
+const config = {
+  name: 'users',
+  connector: 'memory',
+  localStorage: '',
+  file: './src/data/users.json'
+};
 
 // Observe application's life cycle to disconnect the datasource when
 // application is stopped. This allows the application to be shut down

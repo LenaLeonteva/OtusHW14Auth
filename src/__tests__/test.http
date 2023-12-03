@@ -3,10 +3,29 @@ POST http://127.0.0.1:3000/signup
 Content-Type: application/json
 
 {
-  "id": "1",
   "username": "marsik",
   "password": "kotkotkot",
   "email": "kot@kot.kot"
+}
+
+### reister
+POST http://127.0.0.1:3000/signup
+Content-Type: application/json
+
+{
+  "username": "yosik",
+  "password": "kotikkotik",
+  "email": "yosik@kot.kot"
+}
+
+### reister
+POST http://127.0.0.1:3000/signup
+Content-Type: application/json
+
+{
+  "username": "alisa",
+  "password": "koshkakoshka",
+  "email": "koshka@kot.kot"
 }
 
 ### login
@@ -18,13 +37,25 @@ Content-Type: application/json
   "password": "kotkotkot"
 }
 
-### auth
-POST http://127.0.0.1:3000/auth
+### login
+POST http://127.0.0.1:3000/login
 Content-Type: application/json
 
 {
-  "sessionID": "d97b80fc-eea9-481a-b1dd-195cf0a7a150"
+  "username": "alisa",
+  "password": "koshkakoshka"
 }
+### auth
+POST http://127.0.0.1:3000/auth
+Set-Cookie: session_id=c3dac7b7-b3ba-45ed-abce-5c22c6e11963; Path=/
+
+### auth
+POST http://127.0.0.1:3000/auth
+
+###
+POST http://127.0.0.1:3000/logout
+Set-Cookie: session_id=c3dac7b7-b3ba-45ed-abce-5c22c6e11963; Path=/
+
 
 ###signin
 GET http://127.0.0.1:3000/signin

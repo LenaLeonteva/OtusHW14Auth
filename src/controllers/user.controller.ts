@@ -18,6 +18,7 @@ import {
   get,
   getModelSchemaRef,
   post,
+  Request,
   requestBody,
   Response,
   RestBindings,
@@ -25,6 +26,7 @@ import {
 } from '@loopback/rest';
 import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
 import {genSalt, hash} from 'bcryptjs';
+import {parse} from 'cookie';
 import _ from 'lodash';
 import {v4 as uuidv4} from 'uuid';
 import {Users} from '../models/users.model';
@@ -73,7 +75,8 @@ export class UserController {
     public user: UserProfile,
     @repository(UserRepository) protected userRepository: UserRepository,
     @repository(UsersRepository) public dataUserRepo: UsersRepository,
-    @inject(RestBindings.Http.RESPONSE) private response: Response
+    @inject(RestBindings.Http.RESPONSE) private response: Response,
+    @inject(RestBindings.Http.REQUEST) private request: Request
   ) { }
 
   @post('/login', {
@@ -100,37 +103,33 @@ export class UserController {
   ): Promise<any> {
     // ensure the user exists, and the password is correct
     const user = await this.userService.verifyCredentials(credentials);
+
     // convert a User object into a UserProfile object (reduced set of properties)
     //const userProfile = this.userService.convertToUserProfile(user);
-
     // create a JSON Web Token based on the user profile
     //const token = await this.jwtService.generateToken(userProfile);
+
     const filter = {
       where: {
         username: user.username,
       }
     };
     let userID = await this.dataUserRepo.findOne(filter);
-    if (!userID) return this.response.status(401).send(
-      {
-        statusCode: 401,
-        code: "error",
-        message: "The user doesn't exist",
-
-      })
+    if (!userID) return this.response.status(401).send(this.errorRes(401, "The user doesn't exist"))
 
     let sessionID = uuidv4();
     let userInfo = {
-      userID: userID?.id,
-      userName: userID?.username,
-      email: userID?.email
+      userID: userID.id,
+      userName: userID.username,
+      email: userID.email
 
     }
     SESSIONS.set(sessionID, userInfo);
-    this.response.set('X-UserId', userID?.id);
-    this.response.set('X-User', userID?.username);
-    this.response.set('X-Email', userID?.email);
-    return {sessionID};
+    this.response.set('X-UserId', userID.id);
+    this.response.set('X-User', userID.username);
+    this.response.set('X-Email', userID.email);
+    this.response.cookie("session_id", sessionID)
+    return;
   };
 
   @post('/auth', {
@@ -139,64 +138,44 @@ export class UserController {
         description: 'Session',
       },
     },
-    requestBody: {
-      content: {
-        'application/json': {
-          schema: {
-            type: 'object',
-            properties: {
-              sessionID: {
-                type: 'string',
-              }
-            },
-          }
-        }
-      }
-    }
   })
-  async auth(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: {
-            type: 'object',
-            properties: {
-              sessionID: {
-                type: 'string',
-              }
-            },
-          }
-        }
-      }
-    }) session: any,
-  ): Promise<any> {
-    if (!SESSIONS.has(session.sessionID)) return this.response.status(403).send(
-      {
-        statusCode: 403,
-        code: "error",
-        message: "Please go to login and provide Login/Password",
+  async auth(): Promise<any> {
+    let cookies = this.request.get("Set-cookie")
+    if (!cookies) return this.response.status(403).send(this.errorRes(403, "Please go to login and provide Login/Password"))
+    let objCookies = parse(cookies[0])
+    let sessionID = objCookies.session_id
+    if (!SESSIONS.has(sessionID)) return this.response.status(403).send(this.errorRes(403, "Please go to login and provide Login/Password"))
+    let userData = SESSIONS.get(sessionID);
 
-      })
-    let userData = SESSIONS.get(session.sessionID);
     const filter = {
       where: {
         username: userData.userName,
       }
     };
     let userID = await this.dataUserRepo.findOne(filter);
-    if (!userID) return this.response.status(401).send(
-      {
-        statusCode: 401,
-        code: "error",
-        message: "The user doesn't exist",
-
-      })
+    if (!userID) return this.response.status(401).send(this.errorRes(401, "The user doesn't exist"))
     this.response.set('X-UserId', userID?.id);
     this.response.set('X-User', userID?.username);
     this.response.set('X-Email', userID?.email);
     return this.response.status(200).send();
   }
 
+  @post('/logout', {
+    responses: {
+      '200': {
+        description: 'Session',
+      },
+    },
+  })
+  async logout(): Promise<any> {
+    let cookies = this.request.get("Set-cookie")
+    if (!cookies) return this.response.status(200).send();
+    let objCookies = parse(cookies[0])
+    let sessionID = objCookies.session_id
+    if (!SESSIONS.has(sessionID)) return this.response.status(200).send();
+    SESSIONS.delete(sessionID);
+    return this.response.status(200).send();
+  }
 
   @get('/signin', {
     responses: {
@@ -257,7 +236,18 @@ export class UserController {
       },
     })
     newUserRequest: NewUserRequest,
-  ): Promise<User> {
+  ): Promise<User | any> {
+    const filter = {
+      where: {
+        username: newUserRequest.username,
+      }
+    };
+
+    const sameName = await this.dataUserRepo.findOne(filter)
+    if (sameName) {
+      return this.response.status(400).send(this.errorRes(400, 'Это имя пользователя уже занято!'))
+    }
+
     const password = await hash(newUserRequest.password, await genSalt());
     const savedUser = await this.userRepository.create(
       _.omit(newUserRequest, 'password'),
@@ -275,4 +265,13 @@ export class UserController {
 
     return savedUser;
   }
+
+  errorRes(code: number, mes: string): any {
+    return {
+      statusCode: code,
+      code: "error",
+      message: mes
+    }
+  }
 }
+

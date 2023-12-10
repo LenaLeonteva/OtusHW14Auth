@@ -102,6 +102,7 @@ export class UserController {
     @requestBody(CredentialsRequestBody) credentials: Credentials,
   ): Promise<any> {
     // ensure the user exists, and the password is correct
+    console.log("LOGIN START");
     const user = await this.userService.verifyCredentials(credentials);
 
     // convert a User object into a UserProfile object (reduced set of properties)
@@ -128,7 +129,8 @@ export class UserController {
     this.response.set('X-UserId', userID.id);
     this.response.set('X-User', userID.username);
     this.response.set('X-Email', userID.email);
-    this.response.cookie("session_id", sessionID)
+    this.response.cookie("session_id", sessionID);
+    console.log("LOGIN: ", userID.username);
     return;
   };
 
@@ -140,6 +142,7 @@ export class UserController {
     },
   })
   async auth(): Promise<any> {
+    console.log("AUTH START");
     let cookies = this.request.get("Set-cookie")
     if (!cookies) return this.response.status(403).send(this.errorRes(403, "Please go to login and provide Login/Password"))
     let objCookies = parse(cookies[0])
@@ -154,9 +157,11 @@ export class UserController {
     };
     let userID = await this.dataUserRepo.findOne(filter);
     if (!userID) return this.response.status(401).send(this.errorRes(401, "The user doesn't exist"))
-    this.response.set('X-UserId', userID?.id);
-    this.response.set('X-User', userID?.username);
-    this.response.set('X-Email', userID?.email);
+    this.response.set('X-UserId', userID.id);
+    this.response.set('X-User', userID.username);
+    this.response.set('X-Email', userID.email);
+    console.log("AUTH: ", userID.username);
+    console.log(this.response);
     return this.response.status(200).send();
   }
 
@@ -168,12 +173,14 @@ export class UserController {
     },
   })
   async logout(): Promise<any> {
+    console.log("LOGAUTH START");
     let cookies = this.request.get("Set-cookie")
     if (!cookies) return this.response.status(200).send();
     let objCookies = parse(cookies[0])
     let sessionID = objCookies.session_id
     if (!SESSIONS.has(sessionID)) return this.response.status(200).send();
     SESSIONS.delete(sessionID);
+    console.log("LOGAUTH END");
     return this.response.status(200).send();
   }
 
@@ -186,6 +193,7 @@ export class UserController {
   })
   async signin(
   ): Promise<any> {
+    console.log("SIGNIN");
     return {message: 'Please go to login and provide Login/Password'}
   }
 
@@ -237,6 +245,7 @@ export class UserController {
     })
     newUserRequest: NewUserRequest,
   ): Promise<User | any> {
+    console.log("SIGNUP START");
     const filter = {
       where: {
         username: newUserRequest.username,
@@ -262,7 +271,7 @@ export class UserController {
     dataUser.lastName = "";
     dataUser.phone = "";
     await this.dataUserRepo.create(dataUser);
-
+    console.log("SIGNUP: ", newUserRequest.username);
     return savedUser;
   }
 

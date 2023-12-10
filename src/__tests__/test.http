@@ -1,25 +1,27 @@
-### reister
-POST http://127.0.0.1:3000/signup
+@host=http://arch.homework
+
+### reister 
+POST {{host}}/signup
 Content-Type: application/json
 
 {
-  "username": "marsik",
+  "username": "marsik2",
   "password": "kotkotkot",
-  "email": "kot@kot.kot"
+  "email": "kot2@kot.kot"
 }
 
 ### reister
-POST http://127.0.0.1:3000/signup
+POST {{host}}/signup
 Content-Type: application/json
 
 {
-  "username": "yosik",
+  "username": "yosik2",
   "password": "kotikkotik",
-  "email": "yosik@kot.kot"
+  "email": "yosik2@kot.kot"
 }
 
 ### reister
-POST http://127.0.0.1:3000/signup
+POST {{host}}/signup
 Content-Type: application/json
 
 {
@@ -29,31 +31,42 @@ Content-Type: application/json
 }
 
 ### login
-POST http://127.0.0.1:3000/login
+POST {{host}}/login
 Content-Type: application/json
 
 {
-  "username": "marsik",
+  "username": "marsik2",
   "password": "kotkotkot"
 }
 
 ### login
-POST http://127.0.0.1:3000/login
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "username": "yosik",
+  "password": "kotikkotik"
+}
+
+### login
+POST {{host}}/login
 Content-Type: application/json
 
 {
   "username": "alisa",
   "password": "koshkakoshka"
 }
-### auth
-POST http://127.0.0.1:3000/auth
-Set-Cookie: session_id=c3dac7b7-b3ba-45ed-abce-5c22c6e11963; Path=/
+
 
 ### auth
-POST http://127.0.0.1:3000/auth
+POST {{host}}/auth
+Set-Cookie: session_id=a72c42eb-51ee-40b1-99b8-1826affaccf6; Path=/
+
+### auth
+POST {{host}}/auth
 
 ###
-POST http://127.0.0.1:3000/logout
+POST {{host}}/logout
 Set-Cookie: session_id=c3dac7b7-b3ba-45ed-abce-5c22c6e11963; Path=/
 
 

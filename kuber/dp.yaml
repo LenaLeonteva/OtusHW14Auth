@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-dp
+  name: auth
 spec:
   replicas: 1
   strategy:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: hw14auth
-          image: kisuni/hw14auth
+          image: kisuni/hw14kuber2
           ports:
             - containerPort: 8000
           env:

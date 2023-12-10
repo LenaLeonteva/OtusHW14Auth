@@ -1,0 +1,28 @@
+@host=http://arch.homework
+
+### reister
+POST {{host}}/signup
+Content-Type: application/json
+
+{
+  "username": "marsik",
+  "password": "kotkotkot",
+  "email": "kot@kot.kot"
+}
+
+### login
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "username": "marsik",
+  "password": "kotkotkot"
+}
+
+###
+GET {{host}}/user/1
+Set-Cookie: session_id=a72c42eb-51ee-40b1-99b8-1826affaccf6; Path=/
+
+### auth
+POST {{host}}/auth
+Set-Cookie: session_id=a72c42eb-51ee-40b1-99b8-1826affaccf6; Path=/

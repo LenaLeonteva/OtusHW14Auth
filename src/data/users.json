@@ -1,12 +1,11 @@
 {
   "ids": {
-    "Users": 4
+    "Users": 3
   },
   "models": {
     "Users": {
-      "1": "{\"username\":\"marsik\",\"firstName\":\"\",\"lastName\":\"\",\"email\":\"kot@kot.kot\",\"phone\":\"\",\"id\":\"1\"}",
-      "2": "{\"username\":\"yosik\",\"firstName\":\"\",\"lastName\":\"\",\"email\":\"yosik@kot.kot\",\"phone\":\"\",\"id\":\"2\"}",
-      "3": "{\"username\":\"alisa\",\"firstName\":\"\",\"lastName\":\"\",\"email\":\"koshka@kot.kot\",\"phone\":\"\",\"id\":\"3\"}"
+      "1": "{\"username\":\"marsik2\",\"firstName\":\"\",\"lastName\":\"\",\"email\":\"kot2@kot.kot\",\"phone\":\"\",\"id\":\"1\"}",
+      "2": "{\"username\":\"marsik4\",\"firstName\":\"\",\"lastName\":\"\",\"email\":\"kot4@kot.kot\",\"phone\":\"\",\"id\":\"2\"}"
     }
   }
 }

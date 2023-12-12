@@ -45,9 +45,9 @@ export class NewUserRequest extends User {
 
 const CredentialsSchema: SchemaObject = {
   type: 'object',
-  required: ['username', 'password'],
+  required: ['email', 'password'],
   properties: {
-    username: {
+    email: {
       type: 'string',
     },
     password: {
@@ -103,8 +103,10 @@ export class UserController {
   ): Promise<any> {
     // ensure the user exists, and the password is correct
     console.log("LOGIN START");
+    console.log("LOGIN cred", credentials)
     const user = await this.userService.verifyCredentials(credentials);
 
+    console.log("LOGIN usr", user)
     // convert a User object into a UserProfile object (reduced set of properties)
     //const userProfile = this.userService.convertToUserProfile(user);
     // create a JSON Web Token based on the user profile
@@ -130,7 +132,7 @@ export class UserController {
     this.response.set('X-User', userID.username);
     this.response.set('X-Email', userID.email);
     this.response.cookie("session_id", sessionID);
-    console.log("LOGIN: ", userID.username);
+    console.log("LOGIN END: ", userID.username);
     return;
   };
 
@@ -255,6 +257,17 @@ export class UserController {
     const sameName = await this.dataUserRepo.findOne(filter)
     if (sameName) {
       return this.response.status(400).send(this.errorRes(400, 'Это имя пользователя уже занято!'))
+    }
+
+    const filter2 = {
+      where: {
+        email: newUserRequest.email,
+      }
+    };
+
+    const sameMail = await this.dataUserRepo.findOne(filter2)
+    if (sameMail) {
+      return this.response.status(400).send(this.errorRes(400, 'Этот email уже зарегистрирован!'))
     }
 
     const password = await hash(newUserRequest.password, await genSalt());

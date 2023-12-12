@@ -1,0 +1,16 @@
+{
+  "ids": {
+    "User": 3,
+    "UserCredentials": 3
+  },
+  "models": {
+    "User": {
+      "57845dff-b897-4318-a72d-1ebfc9f68b7e": "{\"id\":\"57845dff-b897-4318-a72d-1ebfc9f68b7e\",\"username\":\"marsik2\",\"email\":\"kot2@kot.kot\"}",
+      "ffae4df4-667a-4e4d-90a4-48e8f2ff0124": "{\"id\":\"ffae4df4-667a-4e4d-90a4-48e8f2ff0124\",\"username\":\"marsik4\",\"email\":\"kot4@kot.kot\"}"
+    },
+    "UserCredentials": {
+      "d85f1e12-e435-44fd-b900-2bdfd309addd": "{\"id\":\"d85f1e12-e435-44fd-b900-2bdfd309addd\",\"password\":\"$2a$10$2puyNiLZd7h6jf.uahRvFuU2uQNuR0r/B5FZwicu/4zj.UA0u43lG\",\"userId\":\"57845dff-b897-4318-a72d-1ebfc9f68b7e\"}",
+      "ddba38fb-17f6-4bdb-a0ec-4e0b847983b3": "{\"id\":\"ddba38fb-17f6-4bdb-a0ec-4e0b847983b3\",\"password\":\"$2a$10$0ml7Z0AGtZuxuCkvt7buuuHt2/rNIyWLaICoq3.qJnhJ3Yk8afe52\",\"userId\":\"ffae4df4-667a-4e4d-90a4-48e8f2ff0124\"}"
+    }
+  }
+}

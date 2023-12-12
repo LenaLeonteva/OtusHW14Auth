@@ -1,11 +1,22 @@
-@host=http://arch.homework
+#@host=http://arch.homework
+@host=http://127.0.0.1:3000
 
-### reister 
+### reister
 POST {{host}}/signup
 Content-Type: application/json
 
 {
   "username": "marsik2",
+  "password": "kotkotkot",
+  "email": "kot2@kot.kot"
+}
+
+### reister
+POST {{host}}/signup
+Content-Type: application/json
+
+{
+  "username": "marsik3",
   "password": "kotkotkot",
   "email": "kot2@kot.kot"
 }
@@ -25,9 +36,9 @@ POST {{host}}/signup
 Content-Type: application/json
 
 {
-  "username": "alisa",
+  "username": "alisa2",
   "password": "koshkakoshka",
-  "email": "koshka@kot.kot"
+  "email": "koshka2@kot.kot"
 }
 
 ### login
@@ -35,7 +46,8 @@ POST {{host}}/login
 Content-Type: application/json
 
 {
-  "username": "marsik2",
+  //"username": "marsik2",
+  "email": "kot2@kot.kot",
   "password": "kotkotkot"
 }
 
@@ -44,7 +56,8 @@ POST {{host}}/login
 Content-Type: application/json
 
 {
-  "username": "yosik",
+  //"username": "yosik2",
+  "email": "yosik2@kot.kot",
   "password": "kotikkotik"
 }
 
@@ -53,8 +66,9 @@ POST {{host}}/login
 Content-Type: application/json
 
 {
-  "username": "alisa",
-  "password": "koshkakoshka"
+  //"username": "alisa",
+  "password": "koshkakoshka",
+  "email": "koshka2@kot.kot"
 }
 
 
